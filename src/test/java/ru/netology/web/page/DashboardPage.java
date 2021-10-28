@@ -3,10 +3,14 @@ package ru.netology.web.page;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.impl.CollectionSource;
 import lombok.val;
 import ru.netology.web.data.DataHelper;
 
-import static com.codeborne.selenide.Condition.visible;
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
@@ -21,18 +25,14 @@ public class DashboardPage {
     private SelenideElement deposit =
             $("[data-test-id=action-deposit]");
 
-    private String card1Id = ("92df3f1c-a033-48e6-8390-206f6b1f56c0");
-    private String card2Id = ("0f3f5c2a-249e-4c3d-8287-09f7a039391d");
-
-
 
     public DashboardPage() {
         heading.shouldBe(visible);
     }
 
     public int getCardBalance(String id) {
-        val text = cards.find(Condition.attributeMatching("data-test-id", id)).text();
-        return extractBalance(text);
+        val text = cards.findBy(text(id)).shouldHave(text(id));
+        return extractBalance(String.valueOf(text));
     }
 
     private int extractBalance(String text) {
@@ -42,10 +42,12 @@ public class DashboardPage {
         return Integer.parseInt(value);
     }
 
-    public TransferPage transferMoney(String id) {
-        cards.find(Condition.attributeMatching("data-test-id", id)).find(String.valueOf(deposit));
-        this.deposit.click();
+    public TransferPage transferMoney(int index) {
+        deposit = DataHelper.getCardButton(index);
+                deposit.click();
+
         return new TransferPage();
     }
+
 
 }
