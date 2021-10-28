@@ -52,13 +52,4 @@ public class ErrorNotificationTest {
         $("[data-test-id=error-notification]").shouldBe(appear, Duration.ofSeconds(7));
     }
 
-    @Test
-    void shouldNotTransferWithMinusAmount() {
-        var dashboardPage = new DashboardPage();
-        var neededCardBalance = dashboardPage.getCardBalance(card1.getVisiblePart());
-        int amount = -1000;
-        dashboardPage.transferMoney(card2.getDepositButton()).successfulTransfer(neededCardBalance, amount, card1.getNumber());
-        $("[data-test-id=error-notification]").shouldBe(appear, Duration.ofSeconds(7));
-
-    }
 }

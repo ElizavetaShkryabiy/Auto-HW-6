@@ -1,7 +1,6 @@
 package ru.netology.web.test;
 
 
-import com.github.javafaker.Faker;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,13 +9,8 @@ import ru.netology.web.page.DashboardPage;
 import ru.netology.web.page.LoginPage;
 import ru.netology.web.page.TransferPage;
 
-import java.time.Duration;
-import java.util.Locale;
-
-import static com.codeborne.selenide.Condition.appear;
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class MoneyTransferTest {
     DataHelper.Card card1 = DataHelper.getFirstCardInfo();
@@ -48,7 +42,17 @@ class MoneyTransferTest {
         int amount = 100;
         dashboardPage.transferMoney(card2.getDepositButton()).successfulTransfer(neededCardBalance, amount, card1.getNumber());
     }
+    @Test
+    void shouldNotTransferWithMinusAmount() {
+        var dashboardPage = new DashboardPage();
 
+        var neededCardBalance = dashboardPage.getCardBalance(card1.getVisiblePart());
+        int amount = -1_000;
+        dashboardPage.transferMoney(card2.getDepositButton()).successfulTransfer(neededCardBalance, amount, card1.getNumber());
+        TransferPage transferPage = new TransferPage();
+        assertEquals((-amount),transferPage.getSum().getValue());
+
+    }
 
 
 
