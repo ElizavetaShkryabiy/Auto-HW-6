@@ -36,9 +36,8 @@ public class ErrorNotificationTest {
         final Faker faker = new Faker(Locale.forLanguageTag("ru"));
         String cardNumber = faker.business().creditCardNumber();
         var dashboardPage = new DashboardPage();
-        var neededCardBalance = 1000000000;
         int amount = 1000;
-        dashboardPage.transferMoney(card2.getDepositButton()).successfulTransfer(neededCardBalance, amount, cardNumber);
+        dashboardPage.transferMoney(card2.getDepositButton()).successfulTransfer(amount, cardNumber);
         $("[data-test-id=error-notification]").shouldBe(appear, Duration.ofSeconds(7))
                 .shouldHave(text("Ошибка! Произошла ошибка"));
     }
@@ -46,9 +45,8 @@ public class ErrorNotificationTest {
     @Test
     void shouldNotTransferMoreThanThereIsOnCard() {
         var dashboardPage = new DashboardPage();
-        var neededCardBalance = dashboardPage.getCardBalance(card1.getVisiblePart());
         int amount = 10500;
-        dashboardPage.transferMoney(card2.getDepositButton()).successfulTransfer(neededCardBalance, amount, card1.getNumber());
+        dashboardPage.transferMoney(card2.getDepositButton()).successfulTransfer(amount, card1.getNumber());
         $("[data-test-id=error-notification]").shouldBe(appear, Duration.ofSeconds(7));
     }
 
