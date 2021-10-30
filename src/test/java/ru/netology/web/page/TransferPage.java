@@ -22,7 +22,6 @@ public class TransferPage {
 
         sum.setValue(String.valueOf(amount));
         from.setValue(cardId);
-
         transfer.click();
         return new DashboardPage();
 

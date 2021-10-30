@@ -12,8 +12,8 @@ import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class MoneyTransferTest {
-    DataHelper.Card card1 = DataHelper.getFirstCardInfo();
-    DataHelper.Card card2 = DataHelper.getSecondCardInfo();
+    DataHelper.Card card1 = DataHelper.getCardInfo(1);
+    DataHelper.Card card2 = DataHelper.getCardInfo(2);
 
 
     @BeforeEach
