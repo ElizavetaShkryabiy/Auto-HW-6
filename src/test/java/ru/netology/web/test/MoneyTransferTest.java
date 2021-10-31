@@ -18,9 +18,8 @@ class MoneyTransferTest {
 
     @BeforeEach
     void setUp() {
-        open("http://localhost:9999");
-        var loginPage = new LoginPage();
 
+        var loginPage = open("http://localhost:9999", LoginPage.class);
         var authInfo = DataHelper.getAuthInfo();
         var verificationPage = loginPage.validLogin(authInfo);
         var verificationCode = DataHelper.getVerificationCodeFor(authInfo);

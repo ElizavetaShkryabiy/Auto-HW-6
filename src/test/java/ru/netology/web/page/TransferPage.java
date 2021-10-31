@@ -2,8 +2,9 @@ package ru.netology.web.page;
 
 import com.codeborne.selenide.SelenideElement;
 
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Condition.visible;
+import java.time.Duration;
+
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
@@ -25,6 +26,10 @@ public class TransferPage {
         transfer.click();
         return new DashboardPage();
 
+    }
+    public void errorNotification(){
+        $("[data-test-id=error-notification]").shouldBe(appear, Duration.ofSeconds(7))
+                .shouldHave(text("Ошибка! Произошла ошибка"));
     }
 
 }
