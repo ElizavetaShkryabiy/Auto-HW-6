@@ -28,8 +28,8 @@ public class ErrorNotificationTest {
         var dashboardPage = new DashboardPage();
         var cardNumber = DataHelper.getInvalidCardInfo().getNumber();
         int amount = 1000;
-        dashboardPage.transferMoney(card2.getDepositButton()).successfulTransfer(amount, cardNumber);
-        var transferPage = new TransferPage();
+        var transferPage = dashboardPage.transferMoney(card2.getDepositButton());
+        transferPage.successfulTransfer(amount, cardNumber);
         transferPage.errorNotification();
     }
 
